@@ -4,12 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(
     docs_url=None,
     redoc_url=None,
-    # root_path='/stats',
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],  # TODO?
+    allow_origins=[
+        'https://vladtsap.com',
+    ],  # TODO?
     allow_methods=["*"],
     allow_headers=["*"],
 )
