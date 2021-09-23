@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(
     docs_url=None,
     redoc_url=None,
-    root_path='/stats',
+    # root_path='/stats',
 )
 
 app.add_middleware(
