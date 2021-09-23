@@ -33,10 +33,8 @@ def test_counter():
 def count_blog_views(post_path: str, request: Request):
     print(post_path)
     print(request.client.host)
-    print(request.base_url)
-    print(request.headers)
-    print(request.method)
+    # print(request.headers)
+    print()
     global COUNTER
     COUNTER += 1
-    # return Response(status_code=400)
     return COUNTER
