@@ -10,6 +10,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         'https://vladtsap.com',
+        '*'
     ],  # TODO?
     allow_methods=["*"],
     allow_headers=["*"],
@@ -32,10 +33,11 @@ def test_counter():
 
 @app.get('/blog/{post_path}')
 def count_blog_views(post_path: str, request: Request):
+    print()
     print(post_path)
     print(request.client.host)
-    # print(request.headers)
-    print()
+    print(request.headers)
     global COUNTER
     COUNTER += 1
+    print(COUNTER)
     return COUNTER
