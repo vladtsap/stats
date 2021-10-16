@@ -1,5 +1,12 @@
-from fastapi import FastAPI, Response, Request
+from fastapi import FastAPI, Response, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+
+from database import models
+from database.base import engine, SessionLocal
+from database.crud import get_post_views
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     docs_url=None,
@@ -12,32 +19,26 @@ app.add_middleware(
         'https://vladtsap.com',
         '*'
     ],  # TODO?
-    allow_methods=["*"],
-    allow_headers=["*"],
 )
 
-COUNTER = 0
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @app.get('/')
-def test_request():
+def index():
     return Response()
 
 
-@app.get('/test')
-def test_counter():
-    global COUNTER
-    COUNTER += 1
-    return COUNTER
-
-
 @app.get('/blog/{post_path}')
-def count_blog_views(post_path: str, request: Request):
-    print()
-    print(post_path)
-    print(request.client.host)
-    print(request.headers)
-    global COUNTER
-    COUNTER += 1
-    print(COUNTER)
-    return COUNTER
+def count_blog_views(post_path: str, request: Request, db: Session = Depends(get_db)):
+    return get_post_views(
+        db=db,
+        path=post_path,
+        ip_address=request.client.host,
+    )
