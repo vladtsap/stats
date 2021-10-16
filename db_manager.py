@@ -1,7 +1,7 @@
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from database.models import Post
+from models import Post
 
 
 def process_post_view(db: Session, path: str, ip_address: str):

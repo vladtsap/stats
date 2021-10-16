@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
-from database.base import Base
+from config import engine
+
+Base = declarative_base()
 
 
 class Post(Base):
@@ -10,3 +13,6 @@ class Post(Base):
     path = Column(String, index=True, )
     ip_address = Column(String, index=True, )
     views = Column(Integer, default=1, )
+
+
+Base.metadata.create_all(bind=engine)

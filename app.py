@@ -2,11 +2,8 @@ from fastapi import FastAPI, Response, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from database import models
-from database.base import engine, SessionLocal
-from database.crud import get_post_views
-
-models.Base.metadata.create_all(bind=engine)
+from config import SessionLocal
+from db_manager import get_post_views
 
 app = FastAPI(
     docs_url=None,
