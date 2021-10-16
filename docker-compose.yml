@@ -1,5 +1,8 @@
 version: '3.8'
 
+volumes:
+  database-data:
+
 services:
   app:
     container_name: stats
@@ -8,3 +11,5 @@ services:
     command: uvicorn app:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips='*'
     ports:
       - 8181:8000
+    volumes:
+      - database-data:/app/db
