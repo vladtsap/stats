@@ -14,6 +14,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         'https://vladtsap.com',
+        'https://stats.vladtsap.com',
     ],
 )
 
